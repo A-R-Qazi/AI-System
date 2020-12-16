@@ -16,7 +16,7 @@ namespace Qazi.Modules.AI
             }
         }
 
-        private void Awake()
+        public void Awake()
         {
             RegisterChildren();
         }

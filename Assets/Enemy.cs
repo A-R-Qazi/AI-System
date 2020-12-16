@@ -24,14 +24,13 @@ namespace Qazi.Modules.AI
         float ForgetDistance = 20;
         float lookAngle;
 
-        private void Start()
+        public void Start()
         {
             f = GetComponent<Fighter>();
             lookAngle = 0;
             m_agent = GetComponent<NavMeshAgent>();
-            f.SwitchWeapon(DefaultWeapon);
         }
-        private void Update()
+        public void Update()
         {
             if (!target)
             {
@@ -44,10 +43,10 @@ namespace Qazi.Modules.AI
                     lookAngle = -PeripheralVision;
                 }
                 lookAngle += 4f;
-                print(found);
                 if (found)
                 {
                     target = info.collider.GetComponent<Player>();
+                    f.SwitchWeapon(DefaultWeapon);
                 }
             }
             else
@@ -55,6 +54,7 @@ namespace Qazi.Modules.AI
                 if (Vector3.Distance(transform.position, target.transform.position) > ForgetDistance)
                 {
                     target = null;
+                    f.SwitchWeapon(EWeaponType.None);
                 }
                 else
                 {

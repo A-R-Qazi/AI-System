@@ -2,12 +2,12 @@
 using UnityEngine;
 namespace Qazi.Modules.AI
 {
-    public class Fighter:MonoBehaviour,IDamageable
+    public class Fighter:Character,IDamageable
     {
         public float health = 10;
         public Weapon weapon;
 
-        public Dictionary<EWeaponType, Weapon> weapons;
+        Dictionary<EWeaponType, Weapon> weapons;
 
         public Fighter()
         {
@@ -17,7 +17,7 @@ namespace Qazi.Modules.AI
         {
             Destroy(gameObject);
         }
-        private void Start()
+        public void Start()
         {
             weapons.Add(EWeaponType.None, null);
             foreach(Weapon w in GetComponentsInChildren<Weapon>())
@@ -48,7 +48,8 @@ namespace Qazi.Modules.AI
                     }
                 }
                 weapon = weapons[type];
-                weapon.gameObject.SetActive(true);
+                if(weapon)
+                    weapon.gameObject.SetActive(true);
                 return true;
             }
             return false;
